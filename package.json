@@ -1,7 +1,7 @@
 {
-  "name": "template-react-component",
+  "name": "@bscop/react-tabs",
   "version": "1.0.0",
-  "description": "A template to create a new React component.",
+  "description": "Accessible tabs (in React).",
   "main": "package/dist/index.js",
   "module": "package/dist/index.es.js",
   "types": "package/src/index.d.ts",
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/brunoscopelliti/template-react-component.git"
+    "url": "git+https://github.com/brunoscopelliti/react-tabs.git"
   },
   "directories": {
     "src": "package/src"
@@ -37,9 +37,9 @@
   "author": "Bruno Scopelliti",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/brunoscopelliti/template-react-component/issues"
+    "url": "https://github.com/brunoscopelliti/react-tabs/issues"
   },
-  "homepage": "https://github.com/brunoscopelliti/template-react-component#readme",
+  "homepage": "https://github.com/brunoscopelliti/react-tabs#readme",
   "devDependencies": {
     "@babel/core": "^7.14.0",
     "@babel/preset-env": "^7.13.15",
