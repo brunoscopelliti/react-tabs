@@ -1,0 +1,23 @@
+{
+  "extends": [
+    "bruno",
+    "plugin:jest/all",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  "plugins": [
+    "jest",
+    "react",
+    "react-hooks"
+  ],
+  "rules": {
+    "jest/prefer-expect-assertions": 0,
+    "jest/lowercase-name": 0,
+    "react/jsx-boolean-value": [2, "never"]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
