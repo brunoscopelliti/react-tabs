@@ -4,9 +4,7 @@ import Message from "./";
 
 describe("Message", () => {
   it("renders a label", () => {
-    const { debug, getByText } = render(<Message label="Hello, world!" />);
-
-    debug();
+    const { getByText } = render(<Message label="Hello, world!" />);
 
     expect(getByText("Hello, world!")).toBeInTheDocument();
   });
