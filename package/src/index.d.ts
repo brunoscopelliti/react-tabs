@@ -1,9 +1,20 @@
 import React from "react";
 
-export type MessageProps = {
+export type Tab = {
+  disabled ?: boolean;
+  id : string;
   label : string;
+  renderContent : (tab : Tab, props: TabsProps) => React.ReactNode
+  // renderHead ?: () => React.ReactNode
+  selected ?: boolean;
 };
 
-declare const Message: React.FC<MessageProps>;
+export type TabsProps = {
+  className ?: string;
+  tabs : Tab[];
+  title : string;
+};
 
-export default Message;
+declare const Tabs : React.ForwardRefRenderFunction<HTMLUListElement, TabsProps>;
+
+export default Tabs;

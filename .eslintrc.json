@@ -24,10 +24,7 @@
   "overrides": [
     {
       "files": ["**/*.test.js"],
-      "extends": ["plugin:testing-library/react"],
-      "rules": {
-        "testing-library/prefer-screen-queries": 0
-      }
+      "extends": ["plugin:testing-library/react"]
     }
   ]
 }
