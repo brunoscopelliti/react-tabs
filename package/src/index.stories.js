@@ -30,7 +30,7 @@ const getSampleTabs =
                 something interesting; but it does not.
               </p>
               <p>
-                Infact the previous link doesn't take you anywhere - sorry.
+                In fact the previous link doesn&#39;t take you anywhere - sorry.
               </p>
             </div>
           );
@@ -44,16 +44,16 @@ const getSampleTabs =
             <div>
               <p>
                 This is the content of the last tab.
-                <br/>I know what you're thinking: "This is the last interesting of the three,
-                and I had also to press right arrow key once more ...".
+                <br/>I know what you are thinking: &lsquo;This is the last interesting of the three,
+                and I had also to press right arrow key once more ...&rsquo;.
               </p>
               <p>
-                Well, you're right.
+                Well, you are right.
               </p>
             </div>
           );
-        }
-      }
+        },
+      },
     ];
   };
 

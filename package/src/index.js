@@ -43,7 +43,13 @@ const Tabs = React.forwardRef(
                       aria-selected={isSelected}
                       disabled={tab.disabled}
                       id={tabId + "-head"}
+                      onClick={
+                        () => {
+                          setSelectedTabId(tab.id);
+                        }
+                      }
                       tabIndex={isSelected ? undefined : -1}
+                      type="button"
                     >
                       {tab.label}
                     </button>

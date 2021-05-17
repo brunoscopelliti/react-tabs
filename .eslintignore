@@ -1,3 +1,4 @@
-*.json
 *.d.ts
+*.json
+*.scss
 package/dist

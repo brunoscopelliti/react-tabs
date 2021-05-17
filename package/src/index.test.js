@@ -1,7 +1,10 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import Tabs from "./";
+
+const hasOwn = {}.hasOwnProperty;
 
 describe("Tabs", () => {
   it("renders nothing when no tabs", () => {
@@ -29,8 +32,8 @@ describe("Tabs", () => {
                 <div>
                   <p>Content for Apple tab.</p>
                 </div>
-              )
-            }
+              );
+            },
           },
           {
             id: "b",
@@ -40,8 +43,8 @@ describe("Tabs", () => {
                 <div>
                   <p>Content for Banana tab.</p>
                 </div>
-              )
-            }
+              );
+            },
           },
           {
             id: "c",
@@ -51,9 +54,9 @@ describe("Tabs", () => {
                 <div>
                   <p>Content for Cherry tab.</p>
                 </div>
-              )
-            }
-          }
+              );
+            },
+          },
         ]}
         title="Fruit details"
       />
@@ -72,8 +75,8 @@ describe("Tabs", () => {
     const expectAttributes =
       (tab, attributes) => {
         for (const k in attributes) {
-          if (attributes.hasOwnProperty(k)) {
-            expect(tab).toHaveAttribute(k, attributes[k]);
+          if (hasOwn.call(attributes, k)) {
+            expect(tab).toHaveAttribute(k, attributes[k]); // eslint-disable-line jest/no-conditional-expect
           }
         }
       };
@@ -119,5 +122,59 @@ describe("Tabs", () => {
       hidden: "",
       id: "tab-c-panel",
     });
+  });
+
+  it("permits to change the visible tab panel by clicking on the corresponding header", () => {
+    render(
+      <Tabs
+        tabs={[
+          {
+            id: "a",
+            label: "Apple",
+            renderContent () {
+              return (
+                <div>
+                  <p>Content for Apple tab.</p>
+                </div>
+              );
+            },
+          },
+          {
+            id: "b",
+            label: "Banana",
+            renderContent () {
+              return (
+                <div>
+                  <p>Content for Banana tab.</p>
+                </div>
+              );
+            },
+          },
+        ]}
+        title="Fruit details"
+      />
+    );
+
+    const tabHeadings = screen.getAllByRole("tab");
+
+    expect(tabHeadings[0]).toHaveAttribute("aria-selected", "true");
+
+    expect(tabHeadings[1]).toHaveAttribute("aria-selected", "false");
+
+    const tabPanels = screen.getAllByRole("tabpanel", { hidden: true });
+
+    expect(tabPanels[0]).toHaveAttribute("aria-expanded", "true");
+
+    expect(tabPanels[1]).toHaveAttribute("hidden", "");
+
+    userEvent.click(tabHeadings[1]);
+
+    expect(tabHeadings[0]).toHaveAttribute("aria-selected", "false");
+
+    expect(tabHeadings[1]).toHaveAttribute("aria-selected", "true");
+
+    expect(tabPanels[0]).toHaveAttribute("hidden", "");
+
+    expect(tabPanels[1]).toHaveAttribute("aria-expanded", "true");
   });
 });
