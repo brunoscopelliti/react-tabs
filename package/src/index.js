@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 
 import useId from "@bscop/use-id";
@@ -17,27 +17,74 @@ const Tabs = React.forwardRef(
 
     const instanceId = useId({ prefix: "tab" });
 
-    const selectedTab = getSelectedTab(tabs);
+    const [selectedTabIndex, setSelectedTabIndex] = useState(
+      getSelectedTabIndex(tabs)
+    );
 
-    const [selectedTabId, setSelectedTabId] = useState(selectedTab?.id);
+    const refActiveTab = useRef(null);
+
+    useEffect(
+      () => {
+        /**
+         * TODO: Shouldn't be executed the first time.
+         */
+        if (refActiveTab.current) {
+          refActiveTab.current.focus();
+        }
+      },
+      [selectedTabIndex]
+    );
 
     if (tabs.length === 0) {
       return null;
     }
+
+    /**
+     * @name onKeyDown
+     * @param {React.KeyboardEvent} event
+     */
+    const onKeyDown =
+      (event) => {
+        /**
+         * FIXME: Check the next/prev tab isn't disabled; otherwise skip it.
+         */
+        switch (event.key){
+          case "ArrowLeft":
+            if (selectedTabIndex > 0) {
+              setSelectedTabIndex(selectedTabIndex - 1);
+            }
+            break;
+          case "ArrowRight":
+            if (selectedTabIndex < tabs.length - 1) {
+              setSelectedTabIndex(selectedTabIndex + 1);
+            }
+            break;
+        }
+      };
 
     return (
       <>
         <ul className={`ui-tabs ${className || ""}`} ref={ref} role="tablist" aria-label={title}>
           {
             tabs.map(
-              (tab) => {
-                const isSelected = selectedTabId === tab.id;
+              (tab, tabIndex) => {
+                const isSelected = selectedTabIndex === tabIndex;
 
                 const tabId = getTabUniqueId(instanceId, tab.id);
+
+                const propsButton = isSelected
+                  ? {
+                      onKeyDown,
+                      ref: refActiveTab,
+                    }
+                  : {
+                      tabIndex: -1,
+                    };
 
                 return (
                   <li key={tab.id} role="presentation">
                     <button
+                      {...propsButton}
                       role="tab"
                       aria-controls={tabId + "-panel"}
                       aria-selected={isSelected}
@@ -45,10 +92,9 @@ const Tabs = React.forwardRef(
                       id={tabId + "-head"}
                       onClick={
                         () => {
-                          setSelectedTabId(tab.id);
+                          setSelectedTabIndex(tabIndex);
                         }
                       }
-                      tabIndex={isSelected ? undefined : -1}
                       type="button"
                     >
                       {tab.label}
@@ -61,8 +107,8 @@ const Tabs = React.forwardRef(
         </ul>
         {
           tabs.map(
-            (tab) => {
-              const isSelected = selectedTabId === tab.id;
+            (tab, tabIndex) => {
+              const isSelected = selectedTabIndex === tabIndex;
 
               const tabId = getTabUniqueId(instanceId, tab.id);
 
@@ -97,19 +143,22 @@ Tabs.propTypes = {
 export default Tabs;
 
 /**
- * @name getSelectedTab
+ * Returns the position of the selected tab.
+ * When there's no selected tab,
+ * we assume the first tab is visible.
+ * @name getSelectedTabIndex
  * @param {import("./index").Tab[]} tabs
- * @returns {import("./index").Tab}
+ * @returns {number}
  */
-const getSelectedTab =
+const getSelectedTabIndex =
   (tabs) => {
-    const selectedTab = tabs.find(
+    const tabIndex = tabs.findIndex(
       (tab) => {
         return tab.selected;
       }
     );
 
-    return selectedTab || tabs[0];
+    return Math.max(0, tabIndex);
   };
 
 /**
