@@ -7,6 +7,8 @@
 
 Accessible tabs (in React).
 
+[Demo in Storybook](https://brunoscopelliti.github.io/react-tabs)
+
 ## Install
 
 ```
@@ -20,7 +22,29 @@ import Tabs from "@bscop/react-tabs";
 
 function App () {
   return (
-    <Tabs />
+    <Tabs 
+      tabs={[
+        {
+          id: "tab-1",
+          label: "Section one",
+          renderContent () {
+            return (
+              <p>Content of the first tab ...</p>
+            );
+          },
+        },
+        {
+          id: "tab-2",
+          label: "Section two",
+          renderContent () {
+            return (
+              <p>Content of the second tab ...</p>
+            );
+          },
+        }
+      ]}
+      title="Switch tab"
+    />
   );
 }
 ```
