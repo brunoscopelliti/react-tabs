@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 
+import useDidUpdate from "@bscop/use-did-update";
 import useId from "@bscop/use-id";
 
 const Tabs = React.forwardRef(
@@ -23,11 +24,8 @@ const Tabs = React.forwardRef(
 
     const refActiveTab = useRef(null);
 
-    useEffect(
+    useDidUpdate(
       () => {
-        /**
-         * TODO: Shouldn't be executed the first time.
-         */
         if (refActiveTab.current) {
           refActiveTab.current.focus();
         }
