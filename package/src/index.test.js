@@ -195,6 +195,39 @@ describe("Tabs", () => {
     });
   });
 
+  it("renders tabs / custom headings", () => {
+    render(
+      <Tabs
+        tabs={
+          getTabs()
+            .map(
+              (tab, tabIndex) => {
+                return {
+                  ...tab,
+                  renderHead (tab) {
+                    return (
+                      <span data-testid="custom-head">{tab.label}</span>
+                    );
+                  },
+                };
+              }
+            )
+        }
+        title="Fruit details"
+      />
+    );
+
+    const tablist = screen.getByRole("tablist");
+
+    expect(tablist).toBeInTheDocument();
+
+    expect(tablist).toHaveAttribute("aria-label", "Fruit details");
+
+    const tabHeadings = screen.getAllByTestId("custom-head");
+
+    expect(tabHeadings).toHaveLength(3);
+  });
+
   it("permits to change the visible tab panel by clicking on the corresponding header", () => {
     render(
       <Tabs

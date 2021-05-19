@@ -5,7 +5,7 @@ export type Tab = {
   id : string;
   label : string;
   renderContent : (tab : Tab, props: TabsProps) => React.ReactNode
-  // renderHead ?: () => React.ReactNode
+  renderHead ?: (tab : Tab, props: TabsProps) => React.ReactNode
   selected ?: boolean;
 };
 

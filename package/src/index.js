@@ -101,7 +101,11 @@ const Tabs = React.forwardRef(
                       }
                       type="button"
                     >
-                      {tab.label}
+                      {
+                        typeof tab.renderHead == "function"
+                          ? tab.renderHead(tab, props)
+                          : tab.label
+                      }
                     </button>
                   </li>
                 );

@@ -101,3 +101,28 @@ DisabledTabs.args = {
     ),
   title: "Demo",
 };
+
+export const CustomHeadingsTabs = Template.bind({});
+
+const TabIcons = ["🧭", "🔑", "🔭", "💣"];
+
+CustomHeadingsTabs.args = {
+  tabs: getSampleTabs()
+    .map(
+      (tab, i) => {
+        return {
+          ...tab,
+          renderHead (tab, props) {
+            const tabIndex = props.tabs.indexOf(tab);
+            return (
+              <span>
+                <span aria-hidden="true" style={{ marginRight: "5px" }}>{TabIcons[tabIndex]}</span>
+                {tab.label}
+              </span>
+            );
+          },
+        };
+      }
+    ),
+  title: "Demo",
+};
