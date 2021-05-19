@@ -52,7 +52,7 @@ const Tabs = React.forwardRef(
       (event) => {
         let tabIndex;
 
-        switch (event.key){
+        switch (event.key) {
           case "ArrowLeft":
             tabIndex = getPrevSelectableTabIndex(tabs, selectedTabIndex);
             break;
@@ -159,6 +159,7 @@ export default Tabs;
 const getSelectableTab =
   (tabs, getTabIndex) => {
     let tab, tabIndex;
+    // eslint-disable-next-line no-cond-assign
     while (tab = tabs[tabIndex = getTabIndex(tabIndex)]) {
       if (!tab.disabled) {
         return tabIndex;

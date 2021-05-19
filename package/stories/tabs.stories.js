@@ -112,8 +112,8 @@ CustomHeadingsTabs.args = {
       (tab, i) => {
         return {
           ...tab,
-          renderHead (tab, props) {
-            const tabIndex = props.tabs.indexOf(tab);
+          renderHead (tab, { tabs }) {
+            const tabIndex = tabs.indexOf(tab);
             return (
               <span>
                 <span aria-hidden="true" style={{ marginRight: "5px" }}>{TabIcons[tabIndex]}</span>
