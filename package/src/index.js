@@ -33,7 +33,14 @@ const Tabs = React.forwardRef(
       [selectedTabIndex]
     );
 
-    if (tabs.length === 0) {
+    /**
+     * When it's not possible to determine a selected tab
+     * it renders nothing;
+     * This usually happens when:
+     *  - `tabs` is empty array, or
+     *  - it contains only disabled tabs
+     */
+    if (selectedTabIndex < 0) {
       return null;
     }
 
@@ -43,20 +50,19 @@ const Tabs = React.forwardRef(
      */
     const onKeyDown =
       (event) => {
-        /**
-         * FIXME: Check the next/prev tab isn't disabled; otherwise skip it.
-         */
+        let tabIndex;
+
         switch (event.key){
           case "ArrowLeft":
-            if (selectedTabIndex > 0) {
-              setSelectedTabIndex(selectedTabIndex - 1);
-            }
+            tabIndex = getPrevSelectableTabIndex(tabs, selectedTabIndex);
             break;
           case "ArrowRight":
-            if (selectedTabIndex < tabs.length - 1) {
-              setSelectedTabIndex(selectedTabIndex + 1);
-            }
+            tabIndex = getNextSelectableTabIndex(tabs, selectedTabIndex);
             break;
+        }
+
+        if (tabIndex >= 0) {
+          setSelectedTabIndex(tabIndex);
         }
       };
 
@@ -141,6 +147,23 @@ Tabs.propTypes = {
 export default Tabs;
 
 /**
+ * @name getSelectableTab
+ * @param {import("./index").Tab[]} tabs
+ * @param {Function} getTabIndex
+ * @returns {number}
+ */
+const getSelectableTab =
+  (tabs, getTabIndex) => {
+    let tab, tabIndex;
+    while (tab = tabs[tabIndex = getTabIndex(tabIndex)]) {
+      if (!tab.disabled) {
+        return tabIndex;
+      }
+    }
+    return -1;
+  };
+
+/**
  * Returns the position of the selected tab.
  * When there's no selected tab,
  * we assume the first tab is visible.
@@ -156,7 +179,35 @@ const getSelectedTabIndex =
       }
     );
 
-    return Math.max(0, tabIndex);
+    if (tabIndex >= 0) {
+      return tabIndex;
+    }
+
+    return getSelectableTab(tabs, (tabIndex = -1) => tabIndex + 1);
+  };
+
+/**
+ * @name getPrevSelectableTabIndex
+ * @param {import("./index").Tab[]} tabs
+ * @param {number} startIndex
+ * @returns {number}
+ */
+const getPrevSelectableTabIndex =
+  (tabs, startIndex) => {
+    return getSelectableTab(tabs,
+      (tabIndex = startIndex) => tabIndex - 1);
+  };
+
+/**
+ * @name getNextSelectableTabIndex
+ * @param {import("./index").Tab[]} tabs
+ * @param {number} startIndex
+ * @returns {number}
+ */
+const getNextSelectableTabIndex =
+  (tabs, startIndex) => {
+    return getSelectableTab(tabs,
+      (tabIndex = startIndex) => tabIndex + 1);
   };
 
 /**

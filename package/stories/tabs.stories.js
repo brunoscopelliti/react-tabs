@@ -87,15 +87,15 @@ SimpleTabs.args = {
   title: "Demo",
 };
 
-export const DisabledTab = Template.bind({});
+export const DisabledTabs = Template.bind({});
 
-DisabledTab.args = {
+DisabledTabs.args = {
   tabs: getSampleTabs()
     .map(
       (tab, i) => {
         return {
           ...tab,
-          disabled: i === 1,
+          disabled: i < 2,
         };
       }
     ),
