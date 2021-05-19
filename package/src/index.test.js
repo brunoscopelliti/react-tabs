@@ -195,6 +195,86 @@ describe("Tabs", () => {
     });
   });
 
+  it("renders tabs / second is selected", () => {
+    render(
+      <Tabs
+        tabs={
+          getTabs()
+            .map(
+              (tab, tabIndex) => {
+                return {
+                  ...tab,
+                  selected: tabIndex === 1,
+                };
+              }
+            )
+        }
+        title="Fruit details"
+      />
+    );
+
+    const tablist = screen.getByRole("tablist");
+
+    expect(tablist).toBeInTheDocument();
+
+    expect(tablist).toHaveAttribute("aria-label", "Fruit details");
+
+    const tabHeadings = screen.getAllByRole("tab");
+
+    expect(tabHeadings).toHaveLength(3);
+
+    const expectAttributes =
+      (tab, attributes) => {
+        for (const k in attributes) {
+          if (hasOwn.call(attributes, k)) {
+            expect(tab).toHaveAttribute(k, attributes[k]); // eslint-disable-line jest/no-conditional-expect
+          }
+        }
+      };
+
+    expectAttributes(tabHeadings[0], {
+      "aria-controls": "tab-a-panel",
+      "aria-selected": "false",
+      id: "tab-a-head",
+      tabIndex: "-1",
+    });
+
+    expectAttributes(tabHeadings[1], {
+      "aria-controls": "tab-b-panel",
+      "aria-selected": "true",
+      id: "tab-b-head",
+    });
+
+    expectAttributes(tabHeadings[2], {
+      "aria-controls": "tab-c-panel",
+      "aria-selected": "false",
+      id: "tab-c-head",
+      tabIndex: "-1",
+    });
+
+    const tabPanels = screen.getAllByRole("tabpanel", { hidden: true });
+
+    expect(tabPanels).toHaveLength(3);
+
+    expectAttributes(tabPanels[0], {
+      "aria-labelledby": "tab-a-head",
+      hidden: "",
+      id: "tab-a-panel",
+    });
+
+    expectAttributes(tabPanels[1], {
+      "aria-expanded": "true",
+      "aria-labelledby": "tab-b-head",
+      id: "tab-b-panel",
+    });
+
+    expectAttributes(tabPanels[2], {
+      "aria-labelledby": "tab-c-head",
+      hidden: "",
+      id: "tab-c-panel",
+    });
+  });
+
   it("renders tabs / custom headings", () => {
     render(
       <Tabs
