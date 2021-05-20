@@ -38,7 +38,13 @@
     "LICENSE",
     "README.md"
   ],
-  "keywords": [],
+  "keywords": [
+    "react tabs",
+    "tabs",
+    "a11y tabs",
+    "accessibile tabs",
+    "react accessibile tabs"
+  ],
   "author": "Bruno Scopelliti",
   "license": "MIT",
   "bugs": {
