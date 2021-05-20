@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 
+import cssClass from "@bscop/css-class";
+
 import useDidUpdate from "@bscop/use-did-update";
 import useId from "@bscop/use-id";
 
@@ -68,7 +70,7 @@ const Tabs = React.forwardRef(
 
     return (
       <>
-        <ul className={`ui-tabs ${className || ""}`} ref={ref} role="tablist" aria-label={title}>
+        <ul className={cssClass("ui-tabs", className)} ref={ref} role="tablist" aria-label={title}>
           {
             tabs.map(
               (tab, tabIndex) => {
