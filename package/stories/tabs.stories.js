@@ -45,7 +45,7 @@ const getSampleTabs =
           return (
             <div>
               <p>
-                Phasellus ac tristique orci. Nulla maximus <a href="">justo nec dignissim consequat</a>.
+                Phasellus ac tristique orci. Nulla maximus <a href="#">justo nec dignissim consequat</a>.
                 Sed vehicula diam sit amet mi efficitur vehicula in in nisl. Aliquam erat volutpat.
                 Suspendisse lorem turpis, accumsan consequat consectetur gravida, <a href="#">pellentesque
                 ac ante</a>. Aliquam in commodo ligula, sit amet mollis neque. Vestibulum at facilisis massa.
