@@ -7,7 +7,7 @@
 
 Accessible tabs (in React).
 
-[Demo in Storybook](https://brunoscopelliti.github.io/react-tabs)
+[View in Storybook.](https://brunoscopelliti.github.io/react-tabs)
 
 ## Install
 
