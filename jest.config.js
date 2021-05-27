@@ -22,6 +22,7 @@ module.exports = {
   setupFilesAfterEnv: [
     "<rootDir>/config/jest.js",
   ],
+  testEnvironment: "jsdom",
   testMatch: [
     "<rootDir>/**/*.test.js",
   ],
