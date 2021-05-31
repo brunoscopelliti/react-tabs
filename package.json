@@ -34,6 +34,7 @@
   "files": [
     "package/dist",
     "package/src/index.d.ts",
+    "package/src/style.scss",
     "CHANGELOG.md",
     "LICENSE",
     "README.md"
