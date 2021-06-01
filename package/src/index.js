@@ -9,7 +9,7 @@ import useId from "@bscop/use-id";
 const Tabs = React.forwardRef(
   /**
    * @param {import("./index").TabsProps} props
-   * @param {React.Ref<HTMLUListElement>} ref
+   * @param {React.ForwardedRef<HTMLUListElement>} ref
    */
   (props, ref) => {
     const {
@@ -70,7 +70,12 @@ const Tabs = React.forwardRef(
 
     return (
       <>
-        <ul className={cssClass("ui-tabs", className)} ref={ref} role="tablist" aria-label={title}>
+        <ul
+          ref={ref}
+          aria-label={title}
+          className={cssClass("ui-tabs", className)}
+          role="tablist"
+        >
           {
             tabs.map(
               (tab, tabIndex) => {

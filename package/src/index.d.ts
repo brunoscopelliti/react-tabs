@@ -15,6 +15,6 @@ export type TabsProps = {
   title : string;
 };
 
-declare const Tabs : React.ForwardRefRenderFunction<HTMLUListElement, TabsProps>;
+declare const Tabs : React.ForwardRefExoticComponent<TabsProps & React.RefAttributes<HTMLUListElement>>
 
 export default Tabs;
