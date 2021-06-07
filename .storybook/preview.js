@@ -1,3 +1,5 @@
+import "normalize.css";
+
 import "../package/stories/storybook.css";
 import "../package/dist/style.css";
 
