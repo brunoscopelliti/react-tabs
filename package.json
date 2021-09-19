@@ -1,6 +1,6 @@
 {
   "name": "@bscop/react-tabs",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Accessible tabs (in React).",
   "main": "package/dist/index.js",
   "module": "package/dist/index.es.js",
